@@ -18,7 +18,7 @@ class syntax_plugin_mathjax_protecttex extends DokuWiki_Syntax_Plugin {
 
     # Set of environments that this plugin will protect from Dokuwiki parsing
     # * is escaped to work in regexp below
-    # Note: "math", "displaymath", and "flalign" environments seem to not be 
+    # Note: "math", "displaymath", and "flalign" environments seem to not be
     #        recognized by Mathjax...  They will still be protected from Dokuwiki,
     #        but they will not be rendered by MathJax.
     private static $ENVIRONMENTS = array(
