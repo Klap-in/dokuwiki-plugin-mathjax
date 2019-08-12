@@ -61,7 +61,7 @@ class syntax_plugin_mathjax_protecttex extends DokuWiki_Syntax_Plugin {
     }
 
     /**
-     * regexp patterns adapted from jsMath plugin: http://www.dokuwiki.org/plugin:jsmath
+     * regexp patterns adapted from jsMath plugin: https://www.dokuwiki.org/plugin:jsmath
      *
      * @param string $mode
      */
@@ -139,20 +139,22 @@ class syntax_plugin_mathjax_protecttex extends DokuWiki_Syntax_Plugin {
      * @return  boolean                 rendered correctly?
      */
     public function render($mode, Doku_Renderer $renderer, $data) {
-        if($mode == 'xhtml' || $mode == 'odt') {
+        if ($mode == 'xhtml' || $mode == 'odt') {
             /** @var Doku_Renderer_xhtml $renderer */
 
             // Just pass it through, but escape xml entities...
             $renderer->doc .= $renderer->_xmlEntities($data);
             return true;
         }
-
-        if ($mode == 'latex') {
-
-            $renderer->doc .= $data;
+        if ($mode == 'latexport') {
+            // Pass math expressions to latexport renderer
+            $renderer->mathjax_content($data);	
             return true;
         }
-        return false;
+
+        // For all other modes, pass through unchanged.
+        $renderer->doc .= $data;
+        return true;
     }
 }
 
